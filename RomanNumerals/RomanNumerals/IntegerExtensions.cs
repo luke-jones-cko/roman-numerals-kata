@@ -9,26 +9,28 @@ namespace RomanNumerals;
 public static class IntegerExtensions
 {
 
-    private static readonly Dictionary<int, string> numeralSymbols;
-    private static bool shouldBeReversed = false;
+    private static readonly Dictionary<int, string> NumeralSymbols;
+    private static bool _shouldBeReversed;
 
     static IntegerExtensions()
     {
-        numeralSymbols = new Dictionary<int, string>()
+        NumeralSymbols = new Dictionary<int, string>()
         {
             {1, "I"},
             {5, "V"},
-            {10, "X"}
+            {10, "X"},
+            {50, "L"}
         };
     }
 
 
     public static string ToRomanNumerals(this int number)
     {
+        _shouldBeReversed = false;
         // 1, 5, 10
-        if (numeralSymbols.ContainsKey(number))
+        if (NumeralSymbols.ContainsKey(number))
         {
-            return numeralSymbols[number];
+            return NumeralSymbols[number];
         }
         
         var sb = new StringBuilder();
@@ -41,17 +43,17 @@ public static class IntegerExtensions
                 
                 if (hv == 0) break;
                 
-                sb.Append(numeralSymbols[hv]);
+                sb.Append(NumeralSymbols[hv]);
                 number = number - hv;
                 if (number is < 0 or 1)
                 {
-                    sb.Append(numeralSymbols[1]);
+                    sb.Append(NumeralSymbols[1]);
                     i = 0;
                 }
             }
         }
         
-        return shouldBeReversed ? ReverseString(sb.ToString()) : sb.ToString();
+        return _shouldBeReversed ? ReverseString(sb.ToString()) : sb.ToString();
     }
 
     private static string ReverseString(string s)
@@ -64,11 +66,11 @@ public static class IntegerExtensions
     private static int GetHighestValue(int number)
     {
         
-        foreach (var symbol in numeralSymbols.Keys.Reverse())
+        foreach (var symbol in NumeralSymbols.Keys.Reverse())
         {
             if (number + 1 == symbol)
             {
-                shouldBeReversed = true;
+                _shouldBeReversed = true;
                 return symbol;
             }
 

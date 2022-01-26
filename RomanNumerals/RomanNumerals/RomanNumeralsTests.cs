@@ -15,7 +15,6 @@ public class RomanNumeralsTests
     [InlineData(7, "VII")]
     [InlineData(8, "VIII")]
     [InlineData(10, "X")]
-    [InlineData(11, "XI")]
     public void ToRomanNumerals(int number, string expected)
     {
         number.ToRomanNumerals().Should().Be(expected);
