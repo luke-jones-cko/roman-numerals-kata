@@ -9,6 +9,8 @@ public class RomanNumeralsTests
     [InlineData(1, "I")]
     [InlineData(2, "II")]
     [InlineData(5, "V")]
+    [InlineData(8, "VIII")]
+    [InlineData(9, "IX")]
     public void ToRomanNumeralsTest(int number, string expected)
     {
         number.ToRomanNumerals().Should().Be(expected);
